@@ -1,0 +1,392 @@
+/* CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-light: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #64748b;
+    --border: #475569;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--background);
+    color: var(--text-primary);
+    min-height: 100vh; /* Use min-height to allow scrolling on small viewports */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+}
+
+/* Main Game Container */
+.game-container {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 450px;
+    max-height: 95vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: auto; 
+    overflow-y: auto; 
+    transition: all 0.3s ease;
+}
+
+/* Title */
+.game-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+    flex-shrink: 0;
+}
+
+/* Score Section */
+.score-section {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.score-card {
+    background: var(--surface-light);
+    padding: 0.75rem 0.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.score-label {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.score-value {
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.vs-divider {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Choices Section */
+.choices-section {
+    margin-bottom: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 220px; /* Give it a minimum height to maintain layout structure */
+}
+
+.choices-title {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.choices-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.choice-btn {
+    background: var(--surface-light);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: clamp(0.75rem, 2vw, 1.5rem) 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.choice-btn:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+}
+
+.choice-btn:active {
+    transform: translateY(-2px);
+}
+
+.choice-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.choice-btn:hover::before {
+    left: 100%;
+}
+
+.choice-icon {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.choice-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: clamp(0.75rem, 2vw, 1rem);
+}
+
+/* Result Section */
+.result-section {
+    margin-bottom: 1rem;
+    height: 145px; /* <-- CHANGED from min-height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.round-display {
+    background: var(--surface-light);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    width: 100%;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.round-choices {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.choice-display {
+    text-align: center;
+}
+
+.choice-display-icon {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeInScale 0.5s ease forwards;
+}
+
+.choice-display-label {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.vs-text {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.result-message {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 700;
+    padding: 0.75rem;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInFade 0.5s ease forwards 0.3s;
+}
+
+.result-win {
+    color: var(--success-color);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.result-lose {
+    color: var(--error-color);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.result-tie {
+    color: var(--warning-color);
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Reset Button */
+.reset-btn {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    flex-shrink: 0;
+}
+
+.reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}
+
+.reset-btn:active {
+    transform: translateY(0);
+}
+
+/* Animations */
+@keyframes fadeInScale {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scoreUpdate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); color: var(--primary-color); }
+    100% { transform: scale(1); }
+}
+
+.score-update {
+    animation: scoreUpdate 0.4s ease;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- CONSOLIDATED PHONE STYLES --- */
+@media (max-width: 500px) {
+    body {
+        min-height: 100vh;
+        height: auto;
+        padding: 0; 
+    }
+
+    .game-container {
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        border: none;
+        padding: 0.75rem; /* REDUCED padding */
+        background: rgba(30, 41, 59, 0.75);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        box-shadow: none;
+        
+        /* Ensure flex children don't overflow */
+        justify-content: space-around;
+    }
+
+    .game-title {
+        margin-top: 0.5rem; /* REDUCED margin */
+        margin-bottom: 0.5rem;
+    }
+    
+    .score-section {
+        margin-bottom: 0.5rem; /* REDUCED margin */
+    }
+    
+    .score-value {
+        font-size: clamp(1.25rem, 3vw, 1.75rem); /* REDUCED max font size */
+    }
+
+    .choices-section {
+        min-height: 180px; /* REDUCED min-height */
+        margin-bottom: 0.5rem;
+    }
+    
+    .choices-grid {
+        gap: 0.75rem; 
+    }
+    
+    .choice-btn {
+        padding-top: 1rem; /* REDUCED padding */
+        padding-bottom: 1rem;
+    }
+
+    /* --- THE FIX: Make the result choices horizontal again --- */
+    .round-choices {
+        flex-direction: row; /* Changed to row to be horizontal */
+        justify-content: space-around; /* Space them out evenly */
+        align-items: center;
+        gap: 0.5rem; /* Keep a small gap */
+    }
+
+    .vs-text {
+        order: initial; /* Reset order so it's in the middle by default flex flow */
+    }
+
+    /* Inside @media (max-width: 500px) */
+.result-section {
+    height: 120px; /* <-- CHANGED from min-height */
+    margin-bottom: 0.5rem;
+}
+    
+    .round-display {
+        padding: 0.75rem; /* REDUCED padding */
+        margin-bottom: 0.5rem;
+    }
+
+    .reset-btn {
+        margin-bottom: 0.5rem; /* REDUCED margin */
+    }
+}
