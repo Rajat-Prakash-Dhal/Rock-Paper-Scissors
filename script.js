@@ -214,3 +214,4 @@ document.addEventListener('DOMContentLoaded', () => {
     const game = new RockPaperScissors();
     console.log('Rock Paper Scissors game initialized');
 });
+
